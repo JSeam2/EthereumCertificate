@@ -5,167 +5,18 @@ if (typeof web3 !== "undefined"){
 	var web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 }
 
-// to fill up the abi
-var abi = [
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "certificates",
-		"outputs": [
-			{
-				"name": "sender",
-				"type": "address"
-			},
-			{
-				"name": "senderProof",
-				"type": "string"
-			},
-			{
-				"name": "receiver",
-				"type": "address"
-			},
-			{
-				"name": "receiverProof",
-				"type": "string"
-			},
-			{
-				"name": "description",
-				"type": "string"
-			},
-			{
-				"name": "startTime",
-				"type": "uint256"
-			},
-			{
-				"name": "endTime",
-				"type": "uint256"
-			},
-			{
-				"name": "creationtime",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "certificateToSender",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "certificateToReceiver",
-		"outputs": [
-			{
-				"name": "",
-				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": false,
-				"name": "certificateId",
-				"type": "uint256"
-			},
-			{
-				"indexed": false,
-				"name": "sender",
-				"type": "address"
-			},
-			{
-				"indexed": false,
-				"name": "receiver",
-				"type": "address"
-			}
-		],
-		"name": "NewCertificate",
-		"type": "event"
-	},
-	{
-		"constant": false,
-		"inputs": [
-			{
-				"name": "_senderProof",
-				"type": "string"
-			},
-			{
-				"name": "_receiver",
-				"type": "address"
-			},
-			{
-				"name": "_receiverProof",
-				"type": "string"
-			},
-			{
-				"name": "_description",
-				"type": "string"
-			},
-			{
-				"name": "_startTime",
-				"type": "uint256"
-			},
-			{
-				"name": "_endTime",
-				"type": "uint256"
-			}
-		],
-		"name": "createCertificate",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	}
-]; 
-
-var CertificateFactory = web3.eth.contract(abi);
+//abi
+var certificatefactoryContract = web3.eth.contract([{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"certificateToStartTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"certificateToSender","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"certificateToCreateTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"certificateToEndTime","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"certificateToReceiver","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"certificateToReceiverProof","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"certificates","outputs":[{"name":"sender","type":"address"},{"name":"senderProof","type":"string"},{"name":"receiver","type":"address"},{"name":"receiverProof","type":"string"},{"name":"description","type":"string"},{"name":"startTime","type":"uint256"},{"name":"endTime","type":"uint256"},{"name":"creationtime","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_senderProof","type":"string"},{"name":"_receiver","type":"address"},{"name":"_receiverProof","type":"string"},{"name":"_description","type":"string"},{"name":"_startTime","type":"uint256"},{"name":"_endTime","type":"uint256"}],"name":"createCertificate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"certificateToSenderProof","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"certificateToDescription","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"certificateId","type":"uint256"},{"indexed":false,"name":"sender","type":"address"},{"indexed":false,"name":"senderProof","type":"string"},{"indexed":false,"name":"receiver","type":"address"},{"indexed":false,"name":"receiverProof","type":"string"},{"indexed":false,"name":"description","type":"string"},{"indexed":false,"name":"startTime","type":"uint256"},{"indexed":false,"name":"endTime","type":"uint256"},{"indexed":false,"name":"creationTime","type":"uint256"}],"name":"NewCertificate","type":"event"}]);
 
 // to change address 
 // after calling truffle deploy or truffle migrate --network development 
 // look for this CertificateFactory: 0x2b14f63c6760177f48bc81f0c948de9880a69403
 // Change the address respectively
-contractAddress = "0xa929ec2e50d2283b5a6ea5b7a6677389335baf79"
-contractInstance = CertificateFactory.at(contractAddress);
-
-// In event if we need more fields
-//table = {
-//	1: ["cert-1", "sender-1", "receiver-1"],
-//}
+contractAddress = "0xbee0e8359c87bf37cb22d756d5e9b8b30ecd5d48"
+contractInstance = certificatefactoryContract.at(contractAddress);
 
 
-// not working
+// If login currently login is not settled so this is not done
 function createCertificate(form) {
 	var sendProof = form.senderproof.val;
 
@@ -187,13 +38,124 @@ var event = contractInstance.NewCertificate(function(error, result) {
 		console.log(error);
 		return;
 	} else {
-		var _cert = document.getElementById("cert-1");
-		var _sender = document.getElementById("sender-1");
-		var _receiver = document.getElementById("receiver-1");
+		var _cert1 = document.getElementById("cert-1");
+		var _sender1 = document.getElementById("sender-1");
+		var _senderproof1 = document.getElementById("sender-proof-1"); 
+		var _receiver1 = document.getElementById("receiver-1");
+		var _receiverproof1 = document.getElementById("receiver-proof-1"); 
+		var _description1 = document.getElementById("description-1"); 
+		var _startTime1 = document.getElementById("starttime-1");
+		var _endTime1 = document.getElementById("endtime-1");
+		var _createTime1 = document.getElementById("createtime-1");
 
-		_cert.innerHTML = result.args.certificateId;
-		_sender.innerHTML = result.args.sender;
-		_receiver.innerHTML = result.args.receiver;
+		var currentID = result.args.certificateId;
 
+		_cert1.innerHTML = result.args.certificateId;
+		_sender1.innerHTML = result.args.sender;
+		_senderproof1.innerHTML = result.args.senderProof;
+		_receiver1.innerHTML = result.args.receiver;
+		_receiverproof1.innerHTML = result.args.receiverProof;
+		_description1.innerHTML = result.args.description;
+		_startTime1.innerHTML = result.args.startTime;
+		_endTime1.innerHTML = result.args.endTime;
+
+		var _date = new Date(result.args.creationTime * 1000);
+		_createTime1.innerHTML = _date;
+
+		if((currentID - 1) >= 0){
+			var _currentID = currentID - 1;
+
+			var _cert2 =			document.getElementById("cert-2");
+			var _sender2 =			document.getElementById("sender-2");
+			var _senderproof2 =		document.getElementById("sender-proof-2"); 
+			var _receiver2 =		document.getElementById("receiver-2");
+			var _receiverproof2 =	document.getElementById("receiver-proof-2"); 
+			var _description2 =		document.getElementById("description-2"); 
+			var _startTime2 =		document.getElementById("starttime-2");
+			var _endTime2 =			document.getElementById("endtime-2");
+			var _createTime2 =		document.getElementById("createtime-2");
+
+			_cert2.innerHTML =			_currentID; 
+			_sender2.innerHTML =		contractInstance.certificateToSender(_currentID);
+			_senderproof2.innerHTML =	contractInstance.certificateToSenderProof(_currentID);
+			_receiver2.innerHTML =		contractInstance.certificateToReceiver(_currentID);
+			_receiverproof2.innerHTML = contractInstance.certificateToReceiverProof(_currentID); 
+			_description2.innerHTML =	contractInstance.certificateToDescription(_currentID);
+			_startTime2.innerHTML =		contractInstance.certificateToStartTime(_currentID);
+			_endTime2.innerHTML =		contractInstance.certificateToEndTime(_currentID);
+			_createTime2.innerHTML =	new Date(contractInstance.certificateToCreateTime(currentID) * 1000);
+		}
+
+		if((currentID - 2) >= 0){
+			var _currentID = currentID - 2;
+
+			var _cert3 =			document.getElementById("cert-3");
+			var _sender3 =			document.getElementById("sender-3");
+			var _senderproof3 =		document.getElementById("sender-proof-3"); 
+			var _receiver3 =		document.getElementById("receiver-3");
+			var _receiverproof3 =	document.getElementById("receiver-proof-3"); 
+			var _description3 =		document.getElementById("description-3"); 
+			var _startTime3 =		document.getElementById("starttime-3");
+			var _endTime3 =			document.getElementById("endtime-3");
+			var _createTime3 =		document.getElementById("createtime-3");
+
+			_cert3.innerHTML =			_currentID; 
+			_sender3.innerHTML =		contractInstance.certificateToSender(_currentID);
+			_senderproof3.innerHTML =	contractInstance.certificateToSenderProof(_currentID);
+			_receiver3.innerHTML =		contractInstance.certificateToReceiver(_currentID);
+			_receiverproof3.innerHTML = contractInstance.certificateToReceiverProof(_currentID); 
+			_description3.innerHTML =	contractInstance.certificateToDescription(_currentID);
+			_startTime3.innerHTML =		contractInstance.certificateToStartTime(_currentID);
+			_endTime3.innerHTML =		contractInstance.certificateToEndTime(_currentID);
+			_createTime3.innerHTML =	new Date(contractInstance.certificateToCreateTime(currentID) * 1000);
+		}
+
+		if((currentID - 3) >= 0){
+			var _currentID = currentID - 3;
+
+			var _cert4 =			document.getElementById("cert-4");
+			var _sender4 =			document.getElementById("sender-4");
+			var _senderproof4 =		document.getElementById("sender-proof-4"); 
+			var _receiver4 =		document.getElementById("receiver-4");
+			var _receiverproof4 =	document.getElementById("receiver-proof-4"); 
+			var _description4 =		document.getElementById("description-4"); 
+			var _startTime4 =		document.getElementById("starttime-4");
+			var _endTime4 =			document.getElementById("endtime-4");
+			var _createTime4 =		document.getElementById("createtime-4");
+
+			_cert4.innerHTML =			_currentID; 
+			_sender4.innerHTML =		contractInstance.certificateToSender(_currentID);
+			_senderproof4.innerHTML =	contractInstance.certificateToSenderProof(_currentID);
+			_receiver4.innerHTML =		contractInstance.certificateToReceiver(_currentID);
+			_receiverproof4.innerHTML = contractInstance.certificateToReceiverProof(_currentID); 
+			_description4.innerHTML =	contractInstance.certificateToDescription(_currentID);
+			_startTime4.innerHTML =		contractInstance.certificateToStartTime(_currentID);
+			_endTime4.innerHTML =		contractInstance.certificateToEndTime(_currentID);
+			_createTime4.innerHTML =	new Date(contractInstance.certificateToCreateTime(currentID) * 1000);
+		}
+
+		if((currentID - 4) >= 0){
+			var _currentID = currentID - 4;
+
+			var _cert5 =			document.getElementById("cert-5");
+			var _sender5 =			document.getElementById("sender-5");
+			var _senderproof5 =		document.getElementById("sender-proof-5"); 
+			var _receiver5 =		document.getElementById("receiver-5");
+			var _receiverproof5 =	document.getElementById("receiver-proof-5"); 
+			var _description5 =		document.getElementById("description-5"); 
+			var _startTime5 =		document.getElementById("starttime-5");
+			var _endTime5 =			document.getElementById("endtime-5");
+			var _createTime5 =		document.getElementById("createtime-5");
+
+			_cert5.innerHTML =			_currentID; 
+			_sender5.innerHTML =		contractInstance.certificateToSender(_currentID);
+			_senderproof5.innerHTML =	contractInstance.certificateToSenderProof(_currentID);
+			_receiver5.innerHTML =		contractInstance.certificateToReceiver(_currentID);
+			_receiverproof5.innerHTML = contractInstance.certificateToReceiverProof(_currentID); 
+			_description5.innerHTML =	contractInstance.certificateToDescription(_currentID);
+			_startTime5.innerHTML =		contractInstance.certificateToStartTime(_currentID);
+			_endTime5.innerHTML =		contractInstance.certificateToEndTime(_currentID);
+			_createTime5.innerHTML =	new Date(contractInstance.certificateToCreateTime(currentID) * 1000);
+		}
 	}
-}) 
+});

@@ -13,4 +13,5 @@ account0 = web3.eth.accounts[0]
 account1 = web3.eth.accounts[1]
 CertificateFactory.deployed().then(inst => {CertInst = inst})
 
-CertInst.createCertificate(with respective parameters)
+To replace the address
+CertInst.createCertificate("proof",web3.eth.accounts[1], "proof", "description", 0, 0)
