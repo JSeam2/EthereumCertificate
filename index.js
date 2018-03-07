@@ -12,7 +12,7 @@ var certificatefactoryContract = web3.eth.contract([{"constant":true,"inputs":[{
 // after calling truffle deploy or truffle migrate --network development 
 // look for this CertificateFactory: 0x2b14f63c6760177f48bc81f0c948de9880a69403
 // Change the address respectively
-contractAddress = "0xbee0e8359c87bf37cb22d756d5e9b8b30ecd5d48"
+contractAddress = "0xa3a544fde92d658c1b2d7a9b09c5ea47c8294db4"
 contractInstance = certificatefactoryContract.at(contractAddress);
 
 

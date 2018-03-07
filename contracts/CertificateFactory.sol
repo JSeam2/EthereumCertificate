@@ -4,29 +4,20 @@ contract CertificateFactory {
 
   struct Certificate {
     address sender;
-    string senderProof; // to be encrypted
-
+    bytes32 senderProof; // to be encrypted
     address receiver;
-    string receiverProof; // to be encrypted
-
-    string description; // to be encrypted
-
-    uint256 startTime;
-    uint256 endTime;
-
+    bytes32 receiverProof; // to be encrypted
+    bytes32 description; // to be encrypted
     uint256 creationtime; // to be generated upon calling of NewCertificate
   }
 
 
-
   event NewCertificate(uint certificateId, 
                        address sender, 
-                       string senderProof, 
+                       bytes32 senderProof, 
                        address receiver,
-                       string receiverProof,
-                       string description,
-                       uint256 startTime,
-                       uint256 endTime,
+                       bytes32 receiverProof,
+                       bytes32 description,
                        uint256 creationTime);
 
   // Array of certs for the contract
@@ -34,42 +25,41 @@ contract CertificateFactory {
 
   // Mapping for sender
   mapping(uint256 => address) public certificateToSender;
-  mapping(uint256 => string) public certificateToSenderProof;
+  mapping(uint256 => bytes32) public certificateToSenderProof;
   mapping(address => uint256) senderCertificateCount; 
 
   // Mapping for receiver
   mapping(uint256 => address) public certificateToReceiver;
-  mapping(uint256 => string) public certificateToReceiverProof;
+  mapping(uint256 => bytes32) public certificateToReceiverProof;
   mapping(address => uint256) receiverCertificateCount;
 
   // Mapping for description
-  mapping(uint256 => string) public certificateToDescription;
+  mapping(uint256 => bytes32) public certificateToDescription;
 
   // Mapping for timings
-  mapping(uint256 => uint256) public certificateToStartTime;
-  mapping(uint256 => uint256) public certificateToEndTime;
   mapping(uint256 => uint256) public certificateToCreateTime;
   
-  function createCertificate(string _senderProof,
+  function createCertificate(bytes32 _senderProof,
                              address _receiver, 
-                             string _receiverProof,
-                             string _description,
-                             uint256 _startTime, 
-                             uint256 _endTime) public {
+                             bytes32 _receiverProof,
+                             bytes32 _description) public {
     
-    // TODO check if all fields are valid
-    // TODO limit fields to prevent infinite gas
-    // TODO encrypt field
+    // ascii to byte conversion to be done locally via interface
+    // limit the string length
+    require(_senderProof.length < 256);
+    require(_receiverProof.length < 256);
+    require(_description.length < 256); 
 
+    // time registered on blockchain
     uint256 _creationTime = now;
     address _sender = msg.sender;
+
+    // store certificate in the array
     uint256 id = certificates.push(Certificate(_sender, 
                                         _senderProof,                    
                                         _receiver, 
                                         _receiverProof,
                                         _description,
-                                        _startTime, 
-                                        _endTime,
                                         _creationTime)) - 1;
 
 
@@ -84,8 +74,6 @@ contract CertificateFactory {
 
     certificateToDescription[id] = _description;
 
-    certificateToStartTime[id] = _startTime;
-    certificateToEndTime[id] = _endTime;
     certificateToCreateTime[id] = _creationTime;
 
     // call event
@@ -95,10 +83,8 @@ contract CertificateFactory {
                    _receiver,
                    _receiverProof,
                    _description,
-                   _startTime,
-                   _endTime,
                    _creationTime);
   }
-
 }
+
 
