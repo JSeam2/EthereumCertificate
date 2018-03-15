@@ -84,6 +84,7 @@ contract CertificateFactory {
                    _receiverProof,
                    _description,
                    _creationTime);
+
   }
 }
 
